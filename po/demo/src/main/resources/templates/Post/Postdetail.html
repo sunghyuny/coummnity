@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${category.categoryName}">Category Posts</title>
+</head>
+<body>
+    <h1 th:text="${category.categoryName}">Category</h1>
+
+    <h2>게시글 목록</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="post : ${posts}">
+                <td><a th:href="@{/post/detail/{postId}(postId=${post.postId})}" th:text="${post.postName}"></a></td>
+                <td th:text="${post.username}"></td>
+                <td th:text="${post.createdDate}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/post/write">새 게시글 작성</a>
+</body>
+</html>

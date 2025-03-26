@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${category.categoryName}">Category Posts</title>
+    <link rel="stylesheet" href="/css/PostList.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 th:text="${category.categoryName}">Category</h1>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="post : ${posts}">
+                    <td>
+                        <a class="post-title" th:href="@{/post/detail/{postId}(postId=${post.postId})}" 
+                           th:text="${post.postName}"></a>
+                    </td>
+                    <td th:text="${post.username}"></td>
+                    <td th:text="${post.createdDate}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <div class="pagination">
+                <!-- 페이지네이션 영역 -->
+            </div>
+            <a href="/post/write" class="write-btn">새 게시글 작성</a>
+        </div>
+    </div>
+</body>
+</html>

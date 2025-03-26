@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인 페이지</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="header">
+                <div class="h_top">
+                    <div class="logo">
+                        <div class="logo_img"></div>
+                    </div>
+                    
+                    <div class="list">
+                        <ul class="nav">
+                            <li><span><a href="/post/list">게시판</a></span></li>
+                            <li><span>메뉴2</span></li>
+                            <li><span>메뉴3</span></li>
+                            <li><span>메뉴4</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="acc">
+                        <div class="login">
+                            <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                            <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="main">
+                <section class="right">
+                    <div class="etc">
+                        <div class="category-row">
+                            <div class="category-column">
+                                <h4 th:text="${category.categoryName}">Category</h4>
+                                <ul class="post-list">
+                                    <li>첫 번째 공지사항입니다.</li>
+                                    <li>두 번째 공지사항입니다.</li>
+                                    <li>세 번째 공지사항입니다.</li>
+                                    <li>네 번째 공지사항입니다.</li>
+                                </ul>
+                            </div>
+                            <div class="category-column">
+                                <h4>자유게시판</h4>
+                                <ul class="post-list">
+                                    <li>첫 번째 자유게시글입니다.</li>
+                                    <li>두 번째 자유게시글입니다.</li>
+                                    <li>세 번째 자유게시글입니다.</li>
+                                    <li>네 번째 자유게시글입니다.</li>
+                                </ul>
+                            </div>
+                            <div class="category-column">
+                                <h4>질문게시판</h4>
+                                <ul class="post-list">
+                                    <li>첫 번째 질문 게시글입니다.</li>
+                                    <li>두 번째 질문 게시글입니다.</li>
+                                    <li>세 번째 질문 게시글입니다.</li>
+                                    <li>네 번째 질문 게시글입니다.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

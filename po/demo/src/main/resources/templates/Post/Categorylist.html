@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카테고리 목록</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>카테고리 목록</h2>
+        <a href="/admin/categories/new" class="btn btn-primary">새 카테고리 추가</a>
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>카테고리 이름</th>
+                    <th>게시물 수</th>
+                    <th>설정</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 카테고리 목록 출력 -->
+                <tr th:each="category : ${categories}">
+                    <td th:text="${category.categoryName}">카테고리 이름</td>
+                    <td th:text="${category.postCount}">게시물 수</td>
+                    <td>
+                        <a href="/admin/categories/{category.categoryId}" class="btn btn-info">보기</a>
+                        <!-- 카테고리 수정, 삭제 버튼 등을 추가할 수 있음 -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

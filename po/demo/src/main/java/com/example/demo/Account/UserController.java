@@ -1,11 +1,13 @@
 package com.example.demo.Account;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -65,4 +67,10 @@ public class UserController {
         return "Account/Login";
     }
     
+    @ModelAttribute
+    public void addUserToModel(@AuthenticationPrincipal Siteuser siteuser, Model model) {
+        if (siteuser != null) {
+            model.addAttribute("Siteuser", siteuser);  // 로그인된 사용자 정보 추가
+        }
+    }
 }

@@ -39,7 +39,7 @@ public class PostController {
     // 게시글 작성 후 저장
     @PreAuthorize("hasRole('USER')")  // 사용자만 게시글을 작성할 수 있도록 설정
     @PostMapping("/post/write")
-    public String savePost(@ModelAttribute Post post, @RequestParam Long categoryId, Principal principal) {
+    public String savePost(@ModelAttribute Post post,@RequestParam("categoryId") Long categoryId,Principal principal) {
         String username = principal.getName();  // 로그인한 사용자의 이름을 가져옴
         post.setUsername(username);
 
@@ -53,25 +53,32 @@ public class PostController {
         return "redirect:/post/" + categoryId;  // 게시글 저장 후 해당 카테고리 게시글 목록으로 리디렉션
     }
 
-    // 카테고리별 게시글 목록 조회
     @GetMapping("/post/{categoryId}")
-    public String getPostsByCategory(@PathVariable Long categoryId, Model model) {
-        // 해당 카테고리의 게시글 목록을 가져옴
+    public String getPostsByCategory(@PathVariable("categoryId") Long categoryId, Model model) {
         model.addAttribute("posts", postService.getPostsByCategory(categoryId));
-        
-        // 해당 카테고리 정보도 가져옴 (선택사항)
         model.addAttribute("category", categoryService.getCategoryById(categoryId));
-
-        return "Post/Postlist"; // 카테고리별 게시글 목록을 보여주는 페이지
+        return "Post/Postlist";
     }
+    
 
     // 게시글 상세 조회
     @GetMapping("/post/detail/{postId}")
-    public String getPostDetail(@PathVariable Long postId, Model model) {
+    public String getPostDetail(@PathVariable("postId") Long postId, Model model) {
+        System.out.println("🔍 postId 값: " + postId);
+    
         Post post = postService.getPostById(postId);
+        
+        if (post == null) {  
+            System.out.println("⚠ 게시글을 찾을 수 없음! postId=" + postId);
+            return "redirect:/error";  
+        }
+    
+        System.out.println("✅ 게시글 제목: " + post.getPostName()); // 변경된 부분
         model.addAttribute("post", post);
-        return "Post/detail";
+        return "Post/Postdetail";
     }
+    
+    
 
     // 게시글 수정 페이지
     @GetMapping("/post/edit/{postId}")

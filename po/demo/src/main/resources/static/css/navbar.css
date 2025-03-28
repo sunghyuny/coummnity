@@ -1,0 +1,100 @@
+/* Website Header Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.header {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.h_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo_img {
+    width: 150px;
+    height: 50px;
+    background-color: #ddd;
+    background-image: url('path/to/your/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.nav {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav li span {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.nav li span:hover, .nav li span a:hover {
+    color: #007bff;
+}
+
+.nav li span a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.acc {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.acc .user-greeting {
+    color: #333;
+    font-weight: 500;
+}
+
+.acc .login a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.acc .login a:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .h_top {
+        flex-direction: column;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .nav {
+        flex-direction: column;
+        align-items: center;
+        margin: 15px 0;
+    }
+
+    .acc {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

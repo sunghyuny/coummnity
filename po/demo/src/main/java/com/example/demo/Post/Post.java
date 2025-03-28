@@ -29,6 +29,8 @@ public class Post {
     @Column(updatable = false)
     private LocalDate createdDate;
 
+    private String imageurl;
+
     @PrePersist
     protected void onCreate() {
         this.createdDate = LocalDate.now();

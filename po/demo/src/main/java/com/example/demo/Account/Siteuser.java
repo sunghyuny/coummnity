@@ -23,4 +23,8 @@ public class Siteuser {
     private String password;
     private Integer age;
 
+    
+    @Column(nullable = false)
+    private Integer role = 1;  // 기본값은 1 (유저)
+
 }

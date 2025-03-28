@@ -1,87 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Website</title>
     <style>
-        body { margin: 0;}
-        ul {
-            list-style: none;
-            padding: 0;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .outer {
-            width: 100%;
-            height: 50px;
-            line-height: 50px;
-            text-align: center;
-
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .header {
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .h_top {
             display: flex;
-            
-            background-color: yellowgreen;
-
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .outer > li {
-            width: calc(100% / 4);
-            border: 1px solid;
+        .logo_img {
+            width: 150px;
+            height: 50px;
+            background-color: #333;
+            /* Replace with your logo image if needed */
+            background-image: url('path/to/your/logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
         }
-
-        ul.skyblue {
-            background-color: skyblue;
-
-            height: 0;
-            overflow: hidden;
-
-            transition: all 0.5s;
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 30px;
         }
-        li:hover > .skyblue {
-            height: 150px;
+        .nav li span {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.3s ease;
         }
-
-        .main_banner {
-            width: 100%;
-            height: 400px;
-            background-color: rgb(78, 78, 78);
+        .nav li span:hover, .nav li span a:hover {
+            color: #007bff;
+        }
+        .nav li span a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .acc .login a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .acc .login a:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 768px) {
+            .h_top {
+                flex-direction: column;
+                padding: 15px;
+                text-align: center;
+            }
+            .nav {
+                flex-direction: column;
+                align-items: center;
+                margin: 15px 0;
+            }
         }
     </style>
 </head>
 <body>
-    <ul class="outer">
-        <li>
-            <span>menu</span>
-            <ul class="skyblue">
-                <li>sec</li>
-                <li>sec</li>
-                <li>sec</li>
-            </ul>
-        </li>
-        <li>
-            <span>menu</span>
-            <ul class="skyblue">
-                <li>sec</li>
-                <li>sec</li>
-                <li>sec</li>
-            </ul>
-        </li>
-        <li>
-            <span>menu</span>
-            <ul class="skyblue">
-                <li>sec</li>
-                <li>sec</li>
-                <li>sec</li>
-            </ul>
-        </li>
-        <li>
-            <span>menu</span>
-            <ul class="skyblue">
-                <li>sec</li>
-                <li>sec</li>
-                <li>sec</li>
-            </ul>
-        </li>
-    </ul>
+    <div class="header">
+        <div class="h_top">
+            <div class="logo">
+                <div class="logo_img"></div>
+            </div>
+            
+            <div class="list">
+                <ul class="nav">
+                    <li><span><a href="/post/list">게시판</a></span></li>
+                    <li><span>메뉴2</span></li>
+                    <li><span>메뉴3</span></li>
+                    <li><span>메뉴4</span></li>
+                </ul>
+            </div>
 
-    <div class="main_banner"></div>
+            <div class="acc">
+                <div class="login">
+                    <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

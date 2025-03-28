@@ -2,6 +2,8 @@ package com.example.demo.Post;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
@@ -74,4 +76,19 @@ public class PostService {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다. ID: " + postId));
     }
+
+
+
+    @Transactional
+    public void updatePostCounts() {
+    List<Category> categories = categoryRepository.findAll();
+    
+    for (Category category : categories) {
+        int count = postRepository.countPostsByCategory(category.getCategoryId());
+        category.setPostCount(count);
+    }
+
+    categoryRepository.saveAll(categories); // 한 번에 저장 (Batch Update)
+}
+
 }

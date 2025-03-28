@@ -10,54 +10,31 @@
 <body>
     <div id="wrap">
         <header>
-            <div class="header">
-                <div class="h_top">
-                    <div class="logo">
-                        <div class="logo_img"></div>
-                    </div>
-                    
-                    <div class="list">
-                        <ul class="nav">
-                            <li><span><a href="/post/list">게시판</a></span></li>
-                            <li><span>메뉴2</span></li>
-                            <li><span>메뉴3</span></li>
-                            <li><span>메뉴4</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="acc">
-                        <div class="login">
-                            <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                            <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div th:replace="~{navbar :: nav}"></div>
         </header>
         <main>
             <div class="main">
                 <section class="right">
                     <div class="etc">
                         <div class="category-row">
-                            <div class="category-column">
-                                <ul class="category-list">
-                                     <li style="list-style: none;" th:each="category : ${categories}">
-                                        <h4 th:text="${category.categoryName}">카테고리 이름</h4>
-                                       <ul class="post-list" th:each="post : ${posts}">
-                                       
-                                            <li><a class="post-title" th:href="@{/post/detail/{postId}(postId=${post.postId})}" 
-                           th:text="${post.postName}"></a></li>
-                                        </ul>
+                            <div class="category-column" th:each="category : ${categories}">
+                                <h4 th:text="${category.categoryName}">카테고리 이름</h4>
+                                <ul class="post-list">
+                                    <li th:each="post, iterStat : ${category.posts}" th:if="${iterStat.index} < 5">
+                                        <a class="post-title" th:href="@{/post/detail/{postId}(postId=${post.postId})}" 
+                                           th:text="${post.postName}"></a>
                                     </li>
                                 </ul>
-                            </div>                       
+                            </div>
+                            
+                                              
                             <div class="category-column">
-                                <h4>자유게시판</h4>
+                                <h4>질문게시판</h4>
                                 <ul class="post-list">
-                                    <li>첫 번째 자유게시글입니다.</li>
-                                    <li>두 번째 자유게시글입니다.</li>
-                                    <li>세 번째 자유게시글입니다.</li>
-                                    <li>네 번째 자유게시글입니다.</li>
+                                    <li>첫 번째 질문 게시글입니다.</li>
+                                    <li>두 번째 질문 게시글입니다.</li>
+                                    <li>세 번째 질문 게시글입니다.</li>
+                                    <li>네 번째 질문 게시글입니다.</li>
                                 </ul>
                             </div>
                             <div class="category-column">

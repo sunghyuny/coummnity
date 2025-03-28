@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" th:href="{/css/navbar.css}">
+</head>
+<body>
+    <div class="header" th:fragment="nav">
+        <div class="h_top">
+            <div class="logo">
+                <a href="/"><div class="logo_img"></div></a>
+            </div>
+              <div sec:authorize="hasRole('ROLE_ADMIN')">
+                This content is only shown to administrators.
+              </div>
+              <div sec:authorize="hasRole('ROLE_USER')">
+                This content is only shown to users.
+              </div>
+            
+            <div class="list">
+                <ul class="nav">
+                    <li><span><a href="/post/list">게시판</a></span></li>
+                    <li><span>메뉴2</span></li>
+                    <li><span>메뉴3</span></li>
+                    <li><span>메뉴4</span></li>
+                </ul>
+            </div>
+
+            <div class="acc">
+                <div class="user-info">
+                    <div sec:authentication="name"></div>
+                </div>
+                <div class="login">
+                    <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

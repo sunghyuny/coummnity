@@ -18,7 +18,11 @@
                     <div class="etc">
                         <div class="category-row">
                             <div class="category-column" th:each="category : ${categories}">
-                                <h4 th:text="${category.categoryName}">카테고리 이름</h4>
+                                <h4>
+                                    <span th:text="${category.categoryName}">카테고리 이름</span>
+                                    <a th:href="@{'/post/' + ${category.categoryId}}" class="btn" style="padding: 5px 10px; font-size: 0.9em;">+</a>
+                                </h4>
+                                
                                 <ul class="post-list">
                                     <li th:each="post, iterStat : ${category.posts}" th:if="${iterStat.index} < 5">
                                         <a class="post-title" th:href="@{/post/detail/{postId}(postId=${post.postId})}" 
@@ -26,8 +30,6 @@
                                     </li>
                                 </ul>
                             </div>
-                            
-                                              
                             <div class="category-column">
                                 <h4>질문게시판</h4>
                                 <ul class="post-list">

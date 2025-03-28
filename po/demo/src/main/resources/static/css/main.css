@@ -121,6 +121,15 @@ a{
     padding-bottom: 10px;
     margin-bottom: 15px;
     color: #333;
+    display: flex;
+    justify-content: space-between; /* This will push the + button to the right */
+    align-items: center; /* Vertically center the items */
+}
+
+.category-column h4 .btn {
+    padding: 5px 10px;
+    font-size: 0.9em;
+    margin-left: auto; /* Ensures the button is pushed to the right */
 }
 .post-list {
     list-style-type: none;

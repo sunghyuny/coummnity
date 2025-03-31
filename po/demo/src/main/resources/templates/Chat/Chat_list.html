@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>실시간 채팅</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script>
+        let stompClient = null;
+        let username = prompt("사용자 이름을 입력하세요");
+
+        function connect() {
+            let socket = new SockJS('/ws');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function () {
+                console.log('WebSocket 연결됨');
+
+                // 메시지 수신 (채팅 메시지)
+                stompClient.subscribe('/topic/messages', function (message) {
+                    let msg = JSON.parse(message.body);
+                    showMessage(msg.sender + ": " + msg.content);
+                });
+
+                // 입력 중 표시
+                stompClient.subscribe('/topic/typing', function (message) {
+                    let msg = JSON.parse(message.body);
+                    document.getElementById("typing").innerText = msg.sender + "님이 입력 중...";
+                    setTimeout(() => {
+                        document.getElementById("typing").innerText = "";
+                    }, 2000);
+                });
+            });
+        }
+
+        function sendMessage() {
+            let content = document.getElementById("message").value;
+            let chatMessage = {
+                sender: username,
+                content: content,
+                type: "CHAT"
+            };
+            stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
+            document.getElementById("message").value = "";
+        }
+
+        function sendTyping() {
+            let typingMessage = {
+                sender: username,
+                type: "TYPING"
+            };
+            stompClient.send("/app/typing", {}, JSON.stringify(typingMessage));
+        }
+
+        function showMessage(message) {
+            let chatBox = document.getElementById("chat-box");
+            let div = document.createElement("div");
+            div.innerText = message;
+            chatBox.appendChild(div);
+        }
+
+        window.onload = connect;
+    </script>
+</head>
+<body>
+    <h2>실시간 채팅</h2>
+    <div id="chat-box" style="border: 1px solid black; height: 300px; overflow-y: auto; padding: 10px;"></div>
+    <p id="typing" style="color: gray;"></p>
+    <input type="text" id="message" oninput="sendTyping()" />
+    <button onclick="sendMessage()">보내기</button>
+</body>
+</html>

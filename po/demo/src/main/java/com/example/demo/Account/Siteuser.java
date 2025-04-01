@@ -24,7 +24,7 @@ public class Siteuser {
     private Integer age;
 
     
-    @Column(nullable = false)
-    private Integer role = 1;  // 기본값은 1 (유저)
+    // @Column(nullable = false)
+    // private Integer role = 1;  // 기본값은 1 (유저)
 
 }

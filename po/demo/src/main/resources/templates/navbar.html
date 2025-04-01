@@ -30,13 +30,14 @@
 
             <div class="acc">
                 <div class="user-info">
-                    <div sec:authentication="name"></div>
+                    <div sec:authorize="isAuthenticated()" sec:authentication="name"></div>
                 </div>
                 <div class="login">
                     <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
                 </div>
             </div>
+            
         </div>
     </div>
 </body>
